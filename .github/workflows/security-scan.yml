@@ -1,1 +1,22 @@
+name: DevSecOps Security Scan
+
+# This tells the guard: "Run every time I push new code to this repository"
+on: [push]
+
+jobs:
+  security-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step A: Download your code into the temporary GitHub runner computer
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step B: Run the "Checkov" Security Guard
+      - name: Scan Infrastructure for Flaws (Checkov)
+        uses: bridgecrewio/checkov-action@master
+        with:
+          framework: terraform
+          # This tells Checkov to look inside the whole folder
+          directory: . 
 
